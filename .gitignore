@@ -7,3 +7,7 @@ lib/types/**/*.d.ts.map
 
 # WorkBuddy agent internal data (memory, skills, etc.)
 .workbuddy/
+
+# local submission reference material (not part of the plugin)
+/awesome-dsh-plugin-main/
+/contributing.md
