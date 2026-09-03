@@ -13,3 +13,10 @@ lib/types/**/*.d.ts.map
 /contributing.md
 
 /DSH-Transparent-UI-Plugin/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+.idea/
