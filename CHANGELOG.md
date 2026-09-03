@@ -1,5 +1,10 @@
 # Changelog
 
+## main（未发布）
+
+- 通用设置 → 外观 顶部新增「玻璃效果」总开关：始终显示，关闭后仍保留开启入口；关闭时下方全部玻璃调节项隐藏并给出提示。与「插件」页玻璃主题主开关共用同一开关状态。
+- 运行时 `lib/client.js` 已同步镜像该改动（DSH 实际加载的是预构建产物）。
+
 ## 0.1.1-rc.2 兼容
 
 - 兼容 DeepSeek Harness `0.1.1-rc.2`：`settings.plugin.item` 槽位由 list 改为 keyed，注册改用 `key: 'settings.aqua'`；新增 `ctx.settingsScope.bind({ namespace: 'settings.aqua' })` 让「插件」配置页服务 Aqua 主卡片；`ctx.slots.inject` 已移除，改用 `ctx.effect(() => ctx.slots.register(...))` 注册插件卡片与外观（外观）行。
