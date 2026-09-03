@@ -102,6 +102,10 @@ export function apply(ctx: ClientContext): void {
     appearanceBound = actions
     sync()
     return {
+      setEnabled: (enabled) => {
+        layer.setEnabled(enabled)
+        sync()
+      },
       setMode: (mode) => {
         layer.setMode(mode)
         sync()

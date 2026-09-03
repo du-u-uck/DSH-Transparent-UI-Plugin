@@ -5,9 +5,10 @@
  * background brightness, the backdrop source picker, and the wallpaper
  * picker with its two knobs. Every
  * write goes straight through to the layer, so the skin moves live. The
- * controls follow the Appearance cubes directly (no row title of their own),
- * and the whole row renders nothing while the master switch in the Plugins
- * section is off.
+ * controls follow the Appearance cubes directly (no row title of their own).
+ * The row always leads with the glass-effect master switch, so the effect can
+ * be turned back on from General even after the Plugins card switched it off;
+ * the knobs below render only while the effect is enabled.
  */
 import { useRef } from 'react'
 import { IconCheckOutline16 } from '@deepseek-ai/dsh-client-ui-primitives'
@@ -19,8 +20,10 @@ import { loadVideoHandle, saveVideoBlob, saveVideoHandle } from './wallpaper-sto
 import type { createAquaRowStore } from './settings-store.ts'
 import css from './AquaAppearanceRow.module.css'
 
-/** Injected business face: every knob write except the master switch. */
+/** Injected business face: every knob write plus the glass master switch. */
 export interface AquaAppearanceRowInjected {
+  /** Switch the glass layer on or off (mirror of the Plugins master card). */
+  setEnabled: (value: boolean) => void
   /** Set the rendering mode. */
   setMode: (value: 'mica' | 'compat') => void
   /** Set the glass blur radius, px. */
@@ -71,7 +74,7 @@ export type AquaAppearanceRowComponentProps =
  */
 export function AquaAppearanceRow(props: AquaAppearanceRowComponentProps) {
   const {
-    t, setMode, setBlur, setFrost, setFluidHue, setFluidDepth, setBgBrightness,
+    t, setEnabled, setMode, setBlur, setFrost, setFluidHue, setFluidDepth, setBgBrightness,
     setBackground, setWallpaper, setWhale, setCritters, setMesh, setSpotlight, setPress,
     setWallpaperBlur, setWallpaperFrost, setVideoBlur, setVideoBrightness, authorizeVideo, useStore,
   } = props
@@ -172,11 +175,34 @@ export function AquaAppearanceRow(props: AquaAppearanceRowComponentProps) {
   const bgMax = dark ? 50 : 100
   const bgDisplay = Math.min(bgMax, Math.max(bgMin, bgBrightness))
 
-  // Off = the Plugins master switch is off: leave no trace in General.
-  if (!enabled) return null
-
+  // The master switch stays visible whether on or off; the knobs below render only while enabled.
   return (
     <div className={css.group}>
+      {/* 玻璃效果总开关：始终显示（关闭后仍保留此入口，避免找不到开启位置） */}
+      <div className={css.subGroup}>
+        <div className={css.subTitle}>{t('aqua.glassEffect')}</div>
+        <div className={css.controls}>
+          <div className={css.row}>
+            <span className={css.rowLabel}>{t('aqua.glassEffect')}</span>
+            <button
+              type="button"
+              className={enabled ? css.toggleOn : css.toggle}
+              aria-pressed={enabled}
+              onClick={() => { setEnabled(!enabled) }}
+            >
+              <span className={css.check}>
+                {enabled && <IconCheckOutline16 />}
+              </span>
+              {enabled ? t('aqua.enable') : t('aqua.disable')}
+            </button>
+          </div>
+          {!enabled && <div className={css.knobHint}>{t('aqua.offHint')}</div>}
+        </div>
+      </div>
+
+      {/* 关闭玻璃效果时隐藏下方全部调节项 */}
+      {enabled && (
+        <>
       {/* 模式 */}
       <div className={css.subGroup}>
         <div className={css.subTitle}>{t('aqua.mode')}</div>
@@ -400,6 +426,8 @@ export function AquaAppearanceRow(props: AquaAppearanceRowComponentProps) {
             </div>
           </div>
         </div>
+      )}
+        </>
       )}
     </div>
   )

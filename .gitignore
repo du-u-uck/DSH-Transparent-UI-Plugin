@@ -11,3 +11,5 @@ lib/types/**/*.d.ts.map
 # local submission reference material (not part of the plugin)
 /awesome-dsh-plugin-main/
 /contributing.md
+
+/DSH-Transparent-UI-Plugin/
