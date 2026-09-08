@@ -2,6 +2,7 @@
 
 ## 本 README 在原作者**英文 README** 与**中文 README** 全文的基础上，于文末新增「**适配 0.1.1-rc.2**」一节，补充了针对新版 DeepSeek Harness 的 API 改动、我们做的修补，以及**推荐的安装方式**，建议跳转文末阅读。
 
+## 强烈建议把整个仓库文件夹丢给其他Agent，让它帮忙装，如果有问题让它自己修复
 
 # 原作者为WYH66666666,github：https://github.com/WYH66666666/DSH-Transparent-UI-Plugin
 
@@ -229,7 +230,7 @@ ln -s "/绝对路径/DSH-Transparent-UI-Plugin" "$DSH_HOME/profiles/node_modules
       name: '@deepseek-ai/dsh-client-ui-aqua'
 ```
 
-### 原作者提供的其他安装方式（仅供参考）
+### 原作者提供的其他安装方式（仅供参考，大概率报错）
 
 - **npm 一键**：`dsh plugin --profile web add dsh-client-ui-aqua`（可能拉到未适配新版 API 的旧版，谨慎使用）。
 - **GitHub 安装器**：`powershell -ExecutionPolicy Bypass -Command "Invoke-WebRequest 'https://github.com/WYH66666666/DSH-Transparent-UI-Plugin/raw/main/install.ps1' -OutFile install.ps1; .\install.ps1"`（默认装最新发布版，可 `-Version` 指定版本或 `main` 分支）。
