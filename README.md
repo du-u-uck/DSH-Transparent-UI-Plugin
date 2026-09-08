@@ -201,7 +201,9 @@ ln -s "$PWD/DSH" "$DSH_HOME/profiles/node_modules/@deepseek-ai/dsh-client-ui-aqu
 全部断言通过。该验证脚本位于完整开发仓库的 `scripts/` 下，未纳入本精简分发包（不影响运行）。
 
 
-# 推荐安装方式（本适配版）
+# 安装方式（本适配版）
+
+## 最推荐：把整个文件夹扔给其他Agent，让它帮你安装
 
 由于原作者已在 README 中声明难以跟进 DSH API 更新，**npm 发布版仍未适配 `0.1.1-rc.2` 的旧版**；因此推荐直接安装**本文件夹（已适配的副本）**，而不是 `dsh plugin add` 拉取 npm 版。
 
